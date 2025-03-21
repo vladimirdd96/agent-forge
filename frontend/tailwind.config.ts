@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: ["class"],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -17,55 +17,68 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Space Grotesk', 'sans-serif'],
+      },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "rgba(255, 255, 255, 0.1)",
+        input: "rgba(255, 255, 255, 0.1)",
+        ring: "#17E4A3",
+        background: "#0A0F1D",
+        foreground: "#FFFFFF",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#17E4A3",
+          foreground: "#0A0F1D",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#FFFFFF",
+          foreground: "#0A0F1D",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "hsl(0 62.8% 30.6%)",
+          foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "rgba(255, 255, 255, 0.1)",
+          foreground: "rgba(255, 255, 255, 0.5)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "#17E4A3",
+          foreground: "#0A0F1D",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "#0A0F1D",
+          foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "rgba(255, 255, 255, 0.05)",
+          foreground: "#FFFFFF",
         },
-        // Custom colors for futuristic theme
-        neon: {
-          blue: '#0FF',
-          purple: '#F0F',
-          cyan: '#0FF',
+        // Custom colors for mint.ai theme
+        mint: {
+          primary: "#0A0F1D",
+          secondary: "#04070E",
+          accent: "#17E4A3",
         },
         glass: {
-          DEFAULT: 'rgba(255, 255, 255, 0.1)',
-          dark: 'rgba(0, 0, 0, 0.3)',
+          DEFAULT: 'rgba(255, 255, 255, 0.05)',
+          dark: 'rgba(10, 15, 29, 0.7)',
         },
       },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(to bottom, #0A0F1D, #04070E)',
+        'gradient-accent': 'linear-gradient(90deg, #17E4A3 0%, #11A7E1 100%)',
+        'grid-pattern': 'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+      },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "1rem",
+        md: "0.75rem",
+        sm: "0.5rem",
+      },
+      letterSpacing: {
+        wider: '0.05em',
+        widest: '0.1em',
       },
       keyframes: {
         "accordion-down": {
@@ -77,14 +90,24 @@ const config: Config = {
           to: { height: "0" },
         },
         glow: {
-          '0%, 100%': { boxShadow: '0 0 10px #0FF, 0 0 20px #0FF, 0 0 30px #0FF' },
-          '50%': { boxShadow: '0 0 15px #0FF, 0 0 25px #0FF, 0 0 35px #0FF' },
+          '0%, 100%': { boxShadow: '0 0 10px rgba(23, 228, 163, 0.5), 0 0 20px rgba(23, 228, 163, 0.3)' },
+          '50%': { boxShadow: '0 0 15px rgba(23, 228, 163, 0.6), 0 0 25px rgba(23, 228, 163, 0.4)' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "glow": "glow 2s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "pulse": "pulse 4s ease-in-out infinite",
       },
     },
   },

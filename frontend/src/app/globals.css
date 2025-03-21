@@ -2,58 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 180 100% 50%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 300 100% 50%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 180 100% 50%;
-    --radius: 0.5rem;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground font-sans;
+    background-image: linear-gradient(to bottom, #0A0F1D, #04070E);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-wider;
   }
 }
 
-/* Custom futuristic styles */
-.glass-panel {
-  @apply bg-glass backdrop-blur-md border border-neon-blue/30 rounded-lg;
+@layer components {
+  /* Glass effect panel */
+  .glass-panel {
+    @apply bg-glass backdrop-blur-md border border-white/5 rounded-lg shadow-lg;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    z-index: 1;
+  }
+
+  /* Neon accent text */
+  .accent-text {
+    @apply text-primary font-semibold;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-accent bg-clip-text text-transparent font-bold;
+  }
+
+  /* Neon button */
+  .neon-button {
+    @apply relative flex items-center justify-center px-6 py-3 bg-glass backdrop-blur-md border border-primary/20 rounded-lg font-medium text-primary shadow-sm transition-all duration-300;
+  }
+  
+  .neon-button:hover {
+    @apply border-primary/40 shadow-primary/20;
+    box-shadow: 0 0 20px rgba(23, 228, 163, 0.2);
+  }
+  
+  .neon-button:active {
+    transform: translateY(1px);
+  }
+
+  /* Secondary button */
+  .secondary-button {
+    @apply relative flex items-center justify-center px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg font-medium text-white shadow-sm transition-all duration-300;
+  }
+  
+  .secondary-button:hover {
+    @apply bg-white/10;
+  }
+
+  /* Card styles */
+  .agent-card {
+    @apply glass-panel transition-all duration-300 hover:shadow-lg overflow-hidden;
+  }
+  
+  .agent-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Grid background */
+  .grid-background {
+    @apply absolute inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-10;
+    mask-image: linear-gradient(to bottom, transparent, black, transparent);
+  }
 }
 
-.neon-text {
-  @apply text-neon-blue animate-glow;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.neon-border {
-  @apply border border-neon-blue shadow-[0_0_10px_#0FF];
+::-webkit-scrollbar-track {
+  @apply bg-mint-primary;
 }
 
-.gradient-text {
-  @apply bg-gradient-to-r from-neon-blue via-neon-purple to-neon-cyan bg-clip-text text-transparent;
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full;
 }
 
-.hover-glow {
-  @apply transition-shadow duration-300 hover:shadow-[0_0_15px_#0FF];
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-white/20;
 }

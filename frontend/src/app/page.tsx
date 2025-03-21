@@ -1,78 +1,208 @@
-'use client';
+"use client";
 
-import { useWallet, WalletMultiButton } from './providers';
-import { useState } from 'react';
 import AgentGrid from "@/components/AgentGrid";
 import Hero from "@/components/Hero";
+import { motion } from "framer-motion";
+import { Button } from "@/components/Button";
+import Link from "next/link";
+
+// Features section data
+const features = [
+  {
+    title: "Create Agents",
+    description: "Build custom AI agents to automate tasks and processes on the blockchain.",
+    icon: "🤖",
+  },
+  {
+    title: "Run Agents",
+    description: "Execute AI agents to perform complex operations and analysis on Solana.",
+    icon: "⚡",
+  },
+  {
+    title: "Monetize Agents",
+    description: "List your agents on the marketplace and earn from every execution.",
+    icon: "💰",
+  },
+];
+
+// Testimonial data
+const testimonials = [
+  {
+    quote: "AgentForge has revolutionized how I interact with DeFi protocols. My trading bot outperforms manual trading by 32%.",
+    author: "Alex Thompson",
+    title: "Solana Developer",
+  },
+  {
+    quote: "Creating an NFT monitoring agent was straightforward and the returns have been incredible.",
+    author: "Maya Rodriguez",
+    title: "Digital Artist",
+  },
+  {
+    quote: "The platform's reliability and speed are unmatched. My data analysis agent processes on-chain data in real-time.",
+    author: "David Chen",
+    title: "DeFi Analyst",
+  },
+];
 
 export default function Home() {
-  const { publicKey } = useWallet();
-  const [loading, setLoading] = useState(false);
-  
-  const runAgent = async () => {
-    if (!publicKey) return;
-    
-    setLoading(true);
-    try {
-      const response = await fetch('http://localhost:3001/api/agent/run', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          wallet: publicKey.toString(),
-          agentId: 'trading-assistant',
-          input: 'What is the current state of the Solana DeFi ecosystem?',
-        }),
-      });
-      
-      const data = await response.json();
-      console.log('Agent response:', data);
-      alert(data.success ? data.output : data.error);
-    } catch (error) {
-      console.error('Error running agent:', error);
-      alert('Error running agent. See console for details.');
-    } finally {
-      setLoading(false);
-    }
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="absolute top-4 right-4 z-10">
-        <WalletMultiButton className="!bg-primary hover:!bg-primary/80" />
-      </div>
-      
+    <>
       <Hero />
       
-      <section className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold mb-8 gradient-text">
-          Featured Agents
-        </h2>
-        <AgentGrid />
+      {/* Featured Agents Section */}
+      <section className="py-20 bg-mint-primary">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="gradient-text">Featured Agents</span>
+            </h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              Discover powerful AI agents created by the community and start automating your tasks today.
+            </p>
+          </motion.div>
+          
+          <AgentGrid />
+          
+          <motion.div 
+            className="mt-12 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Link href="/agents">
+              <Button variant="secondary">View All Agents</Button>
+            </Link>
+          </motion.div>
+        </div>
       </section>
       
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-        <h1 className="text-4xl font-bold mb-8 text-center">AgentForge</h1>
-        <h2 className="text-2xl mb-8 text-center">AI Agents on Solana</h2>
-        
-        <div className="flex flex-col items-center gap-4 w-full">
-          {publicKey ? (
-            <div className="mt-8 text-center">
-              <p className="mb-4">Connected: {publicKey.toString()}</p>
-              <button 
-                onClick={runAgent}
-                disabled={loading}
-                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+      {/* Features Section */}
+      <section className="py-20 bg-glass-dark">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="gradient-text">How It Works</span>
+            </h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              AgentForge simplifies creating, deploying, and managing AI agents on the Solana blockchain.
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <motion.div 
+                key={index}
+                className="glass-panel p-8 text-center"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
               >
-                {loading ? 'Running...' : 'Run Trading Assistant'}
-              </button>
-            </div>
-          ) : (
-            <p className="mt-8 text-center">Connect your wallet to use agents</p>
-          )}
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
+                <p className="text-white/70">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </section>
+      
+      {/* Testimonials Section */}
+      <section className="py-20 bg-mint-primary">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="gradient-text">Success Stories</span>
+            </h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              Hear from users who have transformed their workflows with AgentForge.
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div 
+                key={index}
+                className="glass-panel p-8"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
+              >
+                <div className="mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-primary">★</span>
+                  ))}
+                </div>
+                <p className="text-white mb-6 italic">&ldquo;{testimonial.quote}&rdquo;</p>
+                <div>
+                  <p className="font-bold text-white">{testimonial.author}</p>
+                  <p className="text-white/70 text-sm">{testimonial.title}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-primary" />
+        <div className="grid-background" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            className="max-w-3xl mx-auto text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="gradient-text">Start Building Today</span>
+            </h2>
+            <p className="text-white/70 text-lg mb-10">
+              Join the AgentForge community and start creating powerful AI agents on the Solana blockchain.
+            </p>
+            <Link href="/create">
+              <Button variant="primary" size="lg" className="animate-glow">
+                Create Your First Agent
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }
