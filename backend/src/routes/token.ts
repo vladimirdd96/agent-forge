@@ -1,15 +1,20 @@
 import { Router } from 'express';
-import { TokenConfig } from '../../../shared/types';
 
 const router = Router();
 
-// Get token info
-router.get('/', async (req, res) => {
+// Get token configuration
+router.get('/', (_, res) => {
   try {
-    // TODO: Implement token info retrieval
-    res.json({ message: 'Token info endpoint' });
+    const tokenConfig = {
+      mint: process.env.FORGE_TOKEN_MINT || '',
+      minBalance: Number(process.env.MIN_FORGE_BALANCE || '100'),
+    };
+    res.json({ success: true, config: tokenConfig });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to get token info' });
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get token configuration',
+    });
   }
 });
 

@@ -5,7 +5,7 @@ const router = Router();
 const agentController = new AgentController();
 
 // Get all available agents
-router.get('/', (_, res) => agentController.getAgents(_, res));
+router.get('/', (req, res) => agentController.getAgents(req, res));
 
 // Run an agent
 router.post('/run', (req, res) => agentController.runAgent(req, res));
