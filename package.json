@@ -1,0 +1,30 @@
+{
+  "name": "agent-forge",
+  "version": "1.0.0",
+  "description": "A modular, scalable full-stack Web3 app for creating and managing AI agents on Solana",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "scripts",
+    "shared"
+  ],
+  "scripts": {
+    "init-token": "npm run init-token --workspace=scripts",
+    "deploy-agent": "npm run deploy-agent --workspace=scripts",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces"
+  },
+  "keywords": [
+    "solana",
+    "web3",
+    "ai",
+    "agents",
+    "blockchain"
+  ],
+  "author": "",
+  "license": "MIT"
+} 
